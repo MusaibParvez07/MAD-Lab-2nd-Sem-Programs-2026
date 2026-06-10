@@ -1,0 +1,244 @@
+// Program 9
+Paste in lib/main.dart
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const GestureApp());
+}
+
+// Program 9: Gesture Detector App
+class GestureApp extends StatelessWidget {
+  const GestureApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: GestureDemo(),
+    );
+  }
+}
+
+class GestureDemo extends StatefulWidget {
+  const GestureDemo({super.key});
+
+  @override
+  State<GestureDemo> createState() => _GestureDemoState();
+}
+
+class _GestureDemoState extends State<GestureDemo> {
+  String message = "Tap, Double Tap, Long Press or Swipe";
+  Color boxColor = Colors.blue;
+  IconData gestureIcon = Icons.touch_app;
+
+  void _singleTap() {
+    setState(() {
+      message = "Single Tap Detected";
+      boxColor = Colors.orange;
+      gestureIcon = Icons.touch_app;
+    });
+  }
+
+  void _doubleTap() {
+    setState(() {
+      message = "Double Tap Detected";
+      boxColor = Colors.green;
+      gestureIcon = Icons.ads_click;
+    });
+  }
+
+  void _longPress() {
+    setState(() {
+      message = "Long Press Detected";
+      boxColor = Colors.purple;
+      gestureIcon = Icons.touch_app_outlined;
+    });
+  }
+
+  void _swipeGesture(DragUpdateDetails details) {
+    setState(() {
+      if (details.delta.dx > 0) {
+        message = "Swipe Right Detected";
+        boxColor = Colors.teal;
+        gestureIcon = Icons.arrow_forward;
+      } else if (details.delta.dx < 0) {
+        message = "Swipe Left Detected";
+        boxColor = Colors.red;
+        gestureIcon = Icons.arrow_back;
+      }
+    });
+  }
+
+  void _verticalSwipeGesture(DragUpdateDetails details) {
+    setState(() {
+      if (details.delta.dy > 0) {
+        message = "Swipe Down Detected";
+        boxColor = Colors.brown;
+        gestureIcon = Icons.keyboard_arrow_down;
+      } else if (details.delta.dy < 0) {
+        message = "Swipe Up Detected";
+        boxColor = Colors.indigo;
+        gestureIcon = Icons.keyboard_arrow_up;
+      }
+    });
+  }
+
+  void _resetGesture() {
+    setState(() {
+      message = "Tap, Double Tap, Long Press or Swipe";
+      boxColor = Colors.blue;
+      gestureIcon = Icons.touch_app;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Gesture Detector Example"),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+      ),
+
+      body: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.blue.shade50,
+              Colors.white,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Program 9: Gesture Demo",
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            const Text(
+              "Perform gestures on the box below",
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            GestureDetector(
+              onTap: _singleTap,
+              onDoubleTap: _doubleTap,
+              onLongPress: _longPress,
+              onHorizontalDragUpdate: _swipeGesture,
+              onVerticalDragUpdate: _verticalSwipeGesture,
+
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 400),
+                width: 280,
+                height: 280,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: boxColor,
+                  borderRadius: BorderRadius.circular(25),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10,
+                      offset: Offset(4, 6),
+                    ),
+                  ],
+                ),
+
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      gestureIcon,
+                      size: 70,
+                      color: Colors.white,
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Text(
+                        message,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            ElevatedButton.icon(
+              onPressed: _resetGesture,
+              icon: const Icon(Icons.refresh),
+              label: const Text("Reset"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 25,
+                  vertical: 14,
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 25),
+
+            Card(
+              elevation: 4,
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  children: const [
+                    Text(
+                      "Gestures Used",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    SizedBox(height: 8),
+
+                    Text(
+                      "Single Tap, Double Tap, Long Press, "
+                      "Swipe Left, Swipe Right, Swipe Up and Swipe Down",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
