@@ -1,0 +1,123 @@
+// Program 10
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(CounterWithHistoryApp());
+}
+
+class CounterWithHistoryApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Counter with History',
+      home: CounterHistoryPage(),
+    );
+  }
+}
+
+class CounterHistoryPage extends StatefulWidget {
+  @override
+  _CounterHistoryPageState createState() =>
+      _CounterHistoryPageState();
+}
+
+class _CounterHistoryPageState
+    extends State<CounterHistoryPage> {
+
+  int counter = 0;
+
+  List<int> history = [0];
+
+  void increment() {
+    setState(() {
+      counter++;
+      history.add(counter);
+    });
+  }
+
+  void decrement() {
+    setState(() {
+      counter--;
+      history.add(counter);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Counter with History'),
+        centerTitle: true,
+      ),
+
+      body: Padding(
+        padding: EdgeInsets.all(16),
+
+        child: Column(
+          children: [
+
+            Text(
+              'Current Value: $counter',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            SizedBox(height: 20),
+
+            Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.center,
+
+              children: [
+
+                ElevatedButton(
+                  onPressed: increment,
+                  child: Text('Increment'),
+                ),
+
+                SizedBox(width: 20),
+
+                ElevatedButton(
+                  onPressed: decrement,
+                  child: Text('Decrement'),
+                ),
+              ],
+            ),
+
+            SizedBox(height: 30),
+
+            Text(
+              'Value History',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+
+            Expanded(
+              child: ListView.builder(
+                itemCount: history.length,
+
+                itemBuilder: (context, index) {
+
+                  return ListTile(
+                    leading: Text('#${index + 1}'),
+
+                    title: Text(
+                      'Value: ${history[index]}',
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
