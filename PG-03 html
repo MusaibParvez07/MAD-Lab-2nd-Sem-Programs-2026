@@ -1,0 +1,82 @@
+//index.html
+Program3_PWA
+│
+├── index.html
+├── manifest.json
+├── sw.js
+├── serviceworker.js
+│
+└── images
+    ├── rvcologo.jpg
+    └── pwaicon.png
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Simple PWA Page</title>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1976D2">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f6ff;
+            text-align: center;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #1976D2;
+        }
+
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 15px;
+        }
+
+        img {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Welcome to My Simple PWA Page</h1>
+    <p>This is a basic example of an HTML page using Progressive Web App.</p>
+
+    <table>
+        <tr>
+            <th>Picture</th>
+            <th>Description</th>
+        </tr>
+
+        <tr>
+            <td>
+                <img src="images/rvcologo.jpg" alt="RVCE Logo">
+            </td>
+            <td>RVCE Logo</td>
+        </tr>
+
+        <tr>
+            <td>
+                <img src="images/pwaicon.png" alt="PWA Icon">
+            </td>
+            <td>PWA Icon</td>
+        </tr>
+    </table>
+
+    <script src="sw.js"></script>
+
+</body>
+</html>
