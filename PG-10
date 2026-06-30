@@ -3,113 +3,141 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(CounterWithHistoryApp());
+  runApp(const CounterApp());
 }
 
-class CounterWithHistoryApp extends StatelessWidget {
+class CounterApp extends StatelessWidget {
+  const CounterApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Simple Counter',
       debugShowCheckedModeBanner: false,
-      title: 'Counter with History',
-      home: CounterHistoryPage(),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const CounterHomePage(),
     );
   }
 }
 
-class CounterHistoryPage extends StatefulWidget {
+class CounterHomePage extends StatefulWidget {
+  const CounterHomePage({super.key});
+
   @override
-  _CounterHistoryPageState createState() =>
-      _CounterHistoryPageState();
+  State<CounterHomePage> createState() => _CounterHomePageState();
 }
 
-class _CounterHistoryPageState
-    extends State<CounterHistoryPage> {
-
+class _CounterHomePageState extends State<CounterHomePage> {
   int counter = 0;
-
   List<int> history = [0];
 
-  void increment() {
+  void incrementCounter() {
     setState(() {
       counter++;
       history.add(counter);
     });
   }
 
-  void decrement() {
+  void decrementCounter() {
     setState(() {
       counter--;
       history.add(counter);
     });
   }
 
+  void resetCounter() {
+    setState(() {
+      counter = 0;
+      history.clear();
+      history.add(counter);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        title: Text('Counter with History'),
+        title: const Text('Simple Counter'),
         centerTitle: true,
       ),
 
       body: Padding(
-        padding: EdgeInsets.all(16),
-
+        padding: const EdgeInsets.all(20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
-            Text(
-              'Current Value: $counter',
+            const Text(
+              'Counter Value:',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 15),
+
+            Text(
+              '$counter',
+              style: const TextStyle(
+                fontSize: 45,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 25),
 
             Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.center,
-
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 ElevatedButton(
-                  onPressed: increment,
-                  child: Text('Increment'),
+                  onPressed: decrementCounter,
+                  child: const Text(
+                    '-',
+                    style: TextStyle(fontSize: 24),
+                  ),
                 ),
 
-                SizedBox(width: 20),
+                const SizedBox(width: 30),
 
                 ElevatedButton(
-                  onPressed: decrement,
-                  child: Text('Decrement'),
+                  onPressed: incrementCounter,
+                  child: const Text(
+                    '+',
+                    style: TextStyle(fontSize: 24),
+                  ),
                 ),
               ],
             ),
 
-            SizedBox(height: 30),
+            const SizedBox(height: 20),
 
-            Text(
-              'Value History',
+            ElevatedButton(
+              onPressed: resetCounter,
+              child: const Text('Reset'),
+            ),
+
+            const SizedBox(height: 25),
+
+            const Text(
+              'Counter History:',
               style: TextStyle(
                 fontSize: 20,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.bold,
               ),
             ),
+
+            const SizedBox(height: 10),
 
             Expanded(
               child: ListView.builder(
                 itemCount: history.length,
-
                 itemBuilder: (context, index) {
-
-                  return ListTile(
-                    leading: Text('#${index + 1}'),
-
-                    title: Text(
-                      'Value: ${history[index]}',
+                  return Center(
+                    child: Text(
+                      'Value ${index + 1}: ${history[index]}',
+                      style: const TextStyle(fontSize: 18),
                     ),
                   );
                 },
