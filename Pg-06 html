@@ -1,0 +1,114 @@
+// first.html
+Program6_Stock_PWA
+│
+├── index.html
+├── manifest.json
+├── sw.js
+│
+├── data
+│   └── stock.json
+│
+└── assets
+    └── logo.png
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Display</title>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00AA00">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2fff2;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #008000;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #00AA00;
+            color: white;
+            text-align: center;
+        }
+
+        td {
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Stock Market Data Display</h2>
+
+    <div id="stock">Loading stock data...</div>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("sw.js")
+                .then(function () {
+                    console.log("Service Worker Registered");
+                })
+                .catch(function (error) {
+                    console.log("Service Worker Registration Failed", error);
+                });
+        }
+
+        fetch("data/stock.json")
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (stockData) {
+                let table = "<table>";
+                table += "<tr>";
+                table += "<th>Company</th>";
+                table += "<th>Description</th>";
+                table += "<th>Initial Price</th>";
+                table += "<th>Price in 2007</th>";
+                table += "<th>Symbol</th>";
+                table += "</tr>";
+
+                stockData.forEach(function (item) {
+                    table += "<tr>";
+                    table += "<td>" + item.company + "</td>";
+                    table += "<td>" + item.description + "</td>";
+                    table += "<td>" + item.initial_price + "</td>";
+                    table += "<td>" + item.price_2007 + "</td>";
+                    table += "<td>" + item.symbol + "</td>";
+                    table += "</tr>";
+                });
+
+                table += "</table>";
+
+                document.getElementById("stock").innerHTML = table;
+            })
+            .catch(function (error) {
+                document.getElementById("stock").innerHTML = "Unable to load stock data.";
+                console.log(error);
+            });
+    </script>
+
+</body>
+</html>
