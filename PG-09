@@ -1,4 +1,4 @@
-// Program 9
+// Program 09
 Paste in lib/main.dart
 
 import 'package:flutter/material.dart';
@@ -7,7 +7,6 @@ void main() {
   runApp(const GestureApp());
 }
 
-// Program 9: Gesture Detector App
 class GestureApp extends StatelessWidget {
   const GestureApp({super.key});
 
