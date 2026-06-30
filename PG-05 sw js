@@ -1,0 +1,39 @@
+// sw.js
+
+const CACHE_NAME = "program5-cache-v1";
+
+const filesToCache = [
+    "./",
+    "./myfirst.html",
+    "./manifest.json",
+    "./js/start.js",
+    "./img/bathroomprod.jpg",
+    "./img/camera.jpg",
+    "./img/headphone.jpeg",
+    "./img/cosmetics.jpg",
+    "./icons/app_icon.png"
+];
+
+self.addEventListener("install", function (event) {
+    console.log("Service Worker installing...");
+
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then(function (cache) {
+                return cache.addAll(filesToCache);
+            })
+    );
+});
+
+self.addEventListener("activate", function (event) {
+    console.log("Service Worker activated.");
+});
+
+self.addEventListener("fetch", function (event) {
+    event.respondWith(
+        caches.match(event.request)
+            .then(function (response) {
+                return response || fetch(event.request);
+            })
+    );
+});
