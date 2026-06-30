@@ -1,0 +1,24 @@
+// manifest.json
+
+{
+    "name": "PWA Login Application",
+    "short_name": "LoginPWA",
+    "start_url": "first.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#2196F3",
+    "description": "A simple login page using PWA manifest file",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "icons/rvce_logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/rvce_logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
