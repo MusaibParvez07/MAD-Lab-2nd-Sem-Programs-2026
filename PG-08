@@ -1,0 +1,75 @@
+// Program 08
+Paste in lib/main.dart
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MessageToggleApp());
+}
+
+class MessageToggleApp extends StatelessWidget {
+  const MessageToggleApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Message Toggle',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const MessageToggleHome(),
+    );
+  }
+}
+
+class MessageToggleHome extends StatefulWidget {
+  const MessageToggleHome({super.key});
+
+  @override
+  State<MessageToggleHome> createState() => _MessageToggleHomeState();
+}
+
+class _MessageToggleHomeState extends State<MessageToggleHome> {
+  bool showHello = true;
+
+  void toggleMessage() {
+    setState(() {
+      showHello = !showHello;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Message Toggle App'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              showHello
+                  ? 'RV College of Engineering!'
+                  : 'Go Change the World!',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 25),
+
+            ElevatedButton(
+              onPressed: toggleMessage,
+              child: const Text('Toggle Message'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
