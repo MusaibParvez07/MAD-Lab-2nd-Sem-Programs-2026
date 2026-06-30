@@ -1,0 +1,78 @@
+// Java Logic Code to be included inside the MainActivity.java
+
+package com.example.progressbarapp;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    ProgressBar progressBar;
+    TextView progressStatus;
+    Button startButton;
+
+    int progress = 0;
+    Handler handler = new Handler(Looper.getMainLooper());
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        progressBar = findViewById(R.id.progressBar);
+        progressStatus = findViewById(R.id.progressStatus);
+        startButton = findViewById(R.id.startButton);
+
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startProgress();
+            }
+        });
+    }
+
+    private void startProgress() {
+        progress = 0;
+        progressBar.setProgress(progress);
+        progressStatus.setText(progress + "%");
+
+        startButton.setEnabled(false);
+        startButton.setText("Downloading...");
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (progress <= 100) {
+                    progressBar.setProgress(progress);
+                    progressStatus.setText(progress + "%");
+                    progress++;
+                    handler.postDelayed(this, 50);
+                } else {
+                    startButton.setEnabled(true);
+                    startButton.setText("Start Download");
+                    showAlertDialog();
+                }
+            }
+        }, 50);
+    }
+
+    private void showAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+        builder.setTitle("Download Complete");
+        builder.setMessage("Your download has been completed successfully.");
+        builder.setIcon(android.R.drawable.ic_dialog_info);
+        builder.setPositiveButton("OK", null);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+}
