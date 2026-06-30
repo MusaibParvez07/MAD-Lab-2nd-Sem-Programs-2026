@@ -1,0 +1,23 @@
+// manifest.json
+
+{
+    "name": "Stock Display",
+    "short_name": "StockApp",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#00AA00",
+    "description": "Display stock data from raw JSON file",
+    "icons": [
+        {
+            "src": "assets/logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
