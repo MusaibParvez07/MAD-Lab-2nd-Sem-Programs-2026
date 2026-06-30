@@ -1,0 +1,81 @@
+// Program 07
+// Paste lib/main.dart
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const ClickCounterApp());
+}
+
+class ClickCounterApp extends StatelessWidget {
+  const ClickCounterApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Click Counter App',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const ClickCounterPage(),
+    );
+  }
+}
+
+class ClickCounterPage extends StatefulWidget {
+  const ClickCounterPage({super.key});
+
+  @override
+  State<ClickCounterPage> createState() => _ClickCounterPageState();
+}
+
+class _ClickCounterPageState extends State<ClickCounterPage> {
+  int counter = 0;
+
+  void incrementCounter() {
+    setState(() {
+      counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Click Counter'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'You have clicked the button this many times:',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20),
+            ),
+
+            const SizedBox(height: 20),
+
+            Text(
+              '$counter',
+              style: const TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            ElevatedButton(
+              onPressed: incrementCounter,
+              child: const Text('Click Me'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+                         
