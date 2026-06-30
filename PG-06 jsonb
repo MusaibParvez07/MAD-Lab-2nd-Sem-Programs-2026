@@ -1,0 +1,39 @@
+// data/stock.json
+
+[
+    {
+        "company": "IBM",
+        "description": "IBM is a technology company known for computer hardware, software and cloud services.",
+        "initial_price": "14.25",
+        "price_2007": "96.56",
+        "symbol": "IBM"
+    },
+    {
+        "company": "Amazon",
+        "description": "Amazon is an e-commerce and cloud computing company.",
+        "initial_price": "18.00",
+        "price_2007": "92.64",
+        "symbol": "AMZN"
+    },
+    {
+        "company": "Campbell Soup",
+        "description": "Campbell Soup is a food company known for soups and packaged food products.",
+        "initial_price": "37.00",
+        "price_2007": "36.41",
+        "symbol": "CPB"
+    },
+    {
+        "company": "Disney",
+        "description": "Disney is an entertainment company known for movies, television and theme parks.",
+        "initial_price": "40.88",
+        "price_2007": "35.47",
+        "symbol": "DIS"
+    },
+    {
+        "company": "Dow Chemical",
+        "description": "Dow Chemical is a chemical company producing industrial and consumer products.",
+        "initial_price": "30.83",
+        "price_2007": "44.67",
+        "symbol": "DOW"
+    }
+]
