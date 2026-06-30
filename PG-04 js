@@ -1,0 +1,18 @@
+// js/log.js
+
+localStorage.setItem("username", "rvce");
+localStorage.setItem("password", "rvce");
+
+function verify() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    let storedUsername = localStorage.getItem("username");
+    let storedPassword = localStorage.getItem("password");
+
+    if (username === storedUsername && password === storedPassword) {
+        alert("Authentication Done");
+    } else {
+        alert("Authentication Failure");
+    }
+}
